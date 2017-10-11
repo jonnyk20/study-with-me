@@ -25,6 +25,7 @@ app.get('/', function(request, response) {
 
 io.on('connection', function(client) {
   console.log('client connected!');
+  client.emit('test', 'hello from server');
 
   client.on('join', function(data) {
     console.log(data);
