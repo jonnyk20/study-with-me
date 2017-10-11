@@ -1,5 +1,7 @@
 import '../assets/stylesheets/base.scss';
 import React, { Component } from 'react';
+import timerStates from '../../lib/timerStates';
+import timerCycles from '../../lib/timerCycles';
 
 let socket = io.connect();
 
@@ -17,8 +19,8 @@ class App extends Component {
   render() {
     return (
       <div>
-      <h1>Hello, {this.props.name}!</h1>
-      <p>Study With Me is under mainenance. It'll be back online by October 17th, 2017 :) </p>
+        <h1>Hello, {this.props.name}!</h1>
+        <p>Study With Me is under mainenance. It'll be back online by October 17th, 2017 :) </p>
       </div>
     )
   }
