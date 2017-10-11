@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div>
       <h1>Hello, {this.props.name}!</h1>
-      <p>Study With Me is under mainenance. We'll be back online by October 17th, 2017! </p>
+      <p>Study With Me is under mainenance. It'll be back online by October 17th, 2017 :) </p>
       </div>
     )
   }
