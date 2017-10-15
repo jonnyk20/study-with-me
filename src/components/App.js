@@ -7,20 +7,21 @@ let socket = io.connect();
 
 class App extends Component {
   componentDidMount() {
+    console.log('mounted')
     socket.on('connect', function(data) {
-      socket.emit('join', 'hello world from the client!');
+      socket.emit('test', 'hello world from the client!');
     });
-    socket.on('test', function(data){
-      console.log('message from server')
-      console.log(data)
+    socket.on('test', (data) => {
+      console.log('message from server:', data)
     })
   }
 
   render() {
+    console.log("rendering")
     return (
       <div>
         <h1>Hello, {this.props.name}!</h1>
-        <p>Study With Me is under mainenance. It'll be back online by October 17th, 2017 :) </p>
+        <p>Study With Me is under mainenance. The site will be back online by October 17th, 2017 :) </p>
       </div>
     )
   }

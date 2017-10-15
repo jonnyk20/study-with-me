@@ -50,6 +50,13 @@ t.on('tick', (type, str) => {
 var userCount = 0;
 var userColor = 0;
 io.on('connection', (client) => {
+
+  // Test code
+  client.on('test', (data) => {
+    console.log('from client:', data)
+    client.emit('test', 'server got your message')
+  })
+  ////
   userCount += 1;
   console.log('client connected! Client count', userCount.toString())
 
