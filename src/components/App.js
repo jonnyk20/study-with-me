@@ -17,7 +17,8 @@ class App extends Component {
     this.onTimerInitiated = this.onTimerInitiated.bind(this)
     this.onSetTimer = this.onSetTimer.bind(this);
     this.onUserCountChange = this.onUserCountChange.bind(this);
-    subscribeToTimer(this.onTimerInitiated, this.onTimerUpdate, this.onUserCountChange);
+    this.assignChatColor = this.assignChatColor.bind(this);
+    subscribeToTimer(this.onTimerInitiated, this.onTimerUpdate, this.onUserCountChange, this.assignChatColor);
     this.state = {
       admin: false,
       timestamp: 'Waiting for Time',
@@ -27,7 +28,8 @@ class App extends Component {
       studySeconds: 0,
       breakMinutes: 0,
       breakSeconds: 0,
-      onlineUsers: 0
+      onlineUsers: 0,
+      chatColor: 0
     };
   }
 
@@ -59,6 +61,7 @@ class App extends Component {
 
           { (this.state.timerCycle === timerCycles.BREAK) &&
           <ChatContainer
+          chatColor={ this.state.chatColor }
           onUserCountChange={ this.onUserCountChange }
          />
         }
@@ -125,6 +128,14 @@ class App extends Component {
     console.log('user count updated! Now', parseInt(newUserCount, 10))
     this.setState({
       onlineUsers: parseInt(newUserCount, 10)
+    })
+  }
+
+  assignChatColor(color){
+    console.log('color received')
+    console.log(color)
+    this.setState({
+      chatColor: parseInt(color, 10)
     })
   }
 };

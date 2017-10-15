@@ -21,8 +21,8 @@ socket.on('reconnect_failed', function() {
   console.log('Reconnection failed');
 });
 
-
-function subscribeToTimer(onInitiated, onUpdated, onUserCountUpdate) {
+function subscribeToTimer(onInitiated, onUpdated, onUserCountUpdate, assignColor) {
+  socket.on('colorAssign', assignColor);
   socket.emit('requestStatus');
   socket.on('timerStatus', function(status){
     console.log('status received')
@@ -51,8 +51,7 @@ function sendUserNameChange(oldUsername, newUsername){
   socket.emit('nameChange', oldUsername, newUsername)
 }
 
-function updateChat(onNewMessage, onNewNotification, assignColor){
-  socket.on('colorAssign', assignColor)
+function updateChat(onNewMessage, onNewNotification){
   socket.on('newMessage', onNewMessage);
   socket.on('newNotification', onNewNotification);
 }

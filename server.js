@@ -36,7 +36,7 @@ server.listen(PORT, function(error) {
 
 
 // timer initiation
-const t = new Timer([25, 0], [5, 0]);
+const t = new Timer([0, 10], [0, 5]);
 t.startTimer();
 
 t.on('tick', (type, str) => {
@@ -58,11 +58,11 @@ io.on('connection', (client) => {
   // })
   ////
 
-
   userCount += 1;
   console.log('client connected! Client count', userCount.toString())
 
   client.emit('colorAssign', userColor.toString())
+  console.log('assigning color:', userColor)
   userColor = userColor === 3 ? 0 : userColor + 1;
 
   const newUser ={
