@@ -15,9 +15,13 @@ h1 {
 .control-row {
   margin-bottom: 8px
 }
+.chat-container {
+  width: 600px;
+  margin-top: 20px;
+}
 
 @media (max-width: 650px) {
-  .app-content {
+  .app-content, .chat-container {
     margin: 20px 20px 0;
     width: auto;
   }
@@ -26,17 +30,22 @@ h1 {
 .admin {
   padding: 5px;
 }
-.chat-container {
-  width: 600px;
+
+.btn-admin {
+  opacity: 0.2;
 }
 
 .message-list {
   min-height: 100px;
   margin-bottom: 15px;
+  padding: 10px;
 }
 
+.chatbar.row.center-block {
+  margin: 5px;
+}
 .chat-input-container {
-  padding: 0;
+  padding: 3px;
 }
 
 .message-username, .chatbar-username {
@@ -60,9 +69,4 @@ h1 {
 
 .user-blue {
   color: #0000ff;
-}
-span.online-users {
-  position: absolute;
-  right: 0;
-  top: 0;
 }

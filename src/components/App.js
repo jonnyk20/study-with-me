@@ -59,6 +59,12 @@ class App extends Component {
               />
           </div>
 
+          { (this.state.timerCycle !== timerCycles.BREAK) &&
+          <div className='center-block text-center text-primary'> 
+            Chat Window will appear during break periods
+          </div>
+          }
+
           { (this.state.timerCycle === timerCycles.BREAK) &&
           <ChatContainer
           chatColor={ this.state.chatColor }

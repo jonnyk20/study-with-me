@@ -8,9 +8,9 @@ class Timer extends Component {
   render()
   {
     return (
-        <div className='container-fluid timer'>
+        <div className='timer'>
           <h4 className='text-center'> Study With Me</h4>
-          <span className='online-users'> Online users: {this.props.onlineUsers} </span>
+          <div className='online-users text-center'> Online users: {this.props.onlineUsers} </div>
           <TimerHeader 
             timerCycle={ this.props.timerCycle }
             timerState={ this.props.timerState }

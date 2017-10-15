@@ -11,10 +11,10 @@ const MessageList = (props) => {
       }
     });
     return (
-      <div className='panel panel-default center-block message-list'>
-        <div className='panel-body'>
+      <div className='message-list'>
+
           { messages }
-        </div>
+
       </div>
     )
 }

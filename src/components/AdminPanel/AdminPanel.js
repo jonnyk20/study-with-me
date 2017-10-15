@@ -12,7 +12,6 @@ const AdminPanel = (props) => {
   return (
           <div>
             <div className='admin row'>
-             
               <div className='col-sm-3'>
                 <button className='btn btn-success' data-command='start' onClick={onCommandClick}>Start</button>
                 <button className='btn btn-danger' data-command='stop' onClick={onCommandClick}>Stop</button>

@@ -24,14 +24,22 @@ export default class ChatContainer extends Component {
   render(){
     return (
       <div className='card mx-auto chat-container'>
-          <MessageList 
-            messages={ this.state.messages }
-          />
-          <ChatBar 
-            user={ this.state.currentUser } 
-            onSubmitMessage={ this.onSubmitMessage }
-            onNewUsername={ this.onNewUsername }
-          />
+        <div className='row'>
+          <div className='col-md-12'>
+            <MessageList 
+              messages={ this.state.messages }
+            />
+            <div className='row'>
+              <div className='col-md-12'>
+                <ChatBar 
+                  user={ this.state.currentUser } 
+                  onSubmitMessage={ this.onSubmitMessage }
+                  onNewUsername={ this.onNewUsername }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
