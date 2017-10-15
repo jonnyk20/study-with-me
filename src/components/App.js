@@ -2,26 +2,125 @@ import '../assets/stylesheets/base.scss';
 import React, { Component } from 'react';
 import timerStates from '../../lib/timerStates';
 import timerCycles from '../../lib/timerCycles';
-import socketConnect from '../socketConnect';
+import { subscribeToTimer, modifyTimer } from '../socketConnect';
 import Timer from './Timer/Timer.js';
-
+import AdminPanel from './AdminPanel/AdminPanel.js';
 
 
 class App extends Component {
   constructor(){
     super();
-    console.log('constructed!')
+    console.log('constructed!');
+    this.controlTimer = this.controlTimer.bind(this)
+    this.onTimerUpdate = this.onTimerUpdate.bind(this)
+    this.onTimerInitiated = this.onTimerInitiated.bind(this)
+    this.onSetTimer = this.onSetTimer.bind(this);
+    this.onUserCountChange = this.onUserCountChange.bind(this);
+    subscribeToTimer(this.onTimerInitiated, this.onTimerUpdate, this.onUserCountChange);
+    this.state = {
+      admin: false,
+      timestamp: 'Waiting for Time',
+      timerState: timerStates.STOPPED,
+      timerCycle: timerCycles.STUDY,
+      studyMinutes: 0,
+      studySeconds: 0,
+      breakMinutes: 0,
+      breakSeconds: 0,
+      onlineUsers: 0
+    };
   }
 
   render() {
     console.log("rendering")
     return (
       <div>
-        <h1>Hello, {this.props.name}!</h1>
-        <p>Study With Me is under mainenance. The site will be back online by October 17th, 2017 :) </p>
-        <Timer />
+        <button className='btn btn-default btn-sm btn-admin' onClick={()=> this.toggleAdmin()}>.</button>
+        <div className='container'>
+            { this.state.admin && <AdminPanel
+              timestamp={ this.state.timestamp }
+              controlTimer={ this.controlTimer }
+              onSetTimer={ this.onSetTimer }
+              studyMinutes={ this.state.studyMinutes }
+              studySeconds={ this.state.studySeconds }
+              breakMinutes={ this.state.breakMinutes }
+              breakSeconds={ this.state.breakSeconds }
+            /> }
+
+
+          <div className='card mx-auto app-content'>
+            <div className='panel-body'>
+              <Timer
+                onlineUsers={ this.state.onlineUsers }
+                timestamp={ this.state.timestamp }
+                timerCycle={ this.state.timerCycle }
+                timerState={ this.state.timerState }
+              />
+            </div>
+          </div>
+        </div>
       </div>
     )
+  }
+  toggleAdmin(){
+    this.setState({
+      admin: !this.state.admin
+    })
+  }
+
+  controlTimer(command, newStudyTime, newBreakTime){
+    modifyTimer(command, newStudyTime, newBreakTime);
+  }
+
+  onTimerUpdate(type, str) {
+    if (type === 'time') {
+      this.setState({ 
+      timestamp: str
+    })
+    } else if (type === 'timerState') {
+      console.log('timer state received', type, str);
+      this.setState({
+        timerState: timerStates[str]
+      });
+    } else if (type === 'timerCycle') {
+      console.log('timer cycle received', type, str);
+      this.setState({
+        timerCycle: timerCycles[str]
+      });
+    } else {
+      console.log('unknown update type', type, str)
+    }
+  }
+  onTimerInitiated(err, timerStatus, cb) {
+    console.log('setting state...')
+    const {
+      studyMinutes,
+      studySeconds,
+      breakMinutes,
+      breakSeconds,
+      timerState,
+      timerCycle
+    } = JSON.parse(timerStatus);
+    this.setState({
+      studyMinutes,
+      studySeconds,
+      breakMinutes,
+      breakSeconds,
+      timerState: timerStates[timerState],
+      timerCycle: timerCycles[timerCycle],
+    }, cb);
+  }
+  onSetTimer(timeProperty, timeValue){
+    this.setState({
+      [timeProperty]: timeValue
+    }, ()=>{
+      this.controlTimer('setTime', [this.state.studyMinutes, this.state.studySeconds], [this.state.breakMinutes, this.state.breakSeconds])
+    })
+  }
+  onUserCountChange(newUserCount) {
+    console.log('user count updated! Now', parseInt(newUserCount, 10))
+    this.setState({
+      onlineUsers: parseInt(newUserCount, 10)
+    })
   }
 };
 

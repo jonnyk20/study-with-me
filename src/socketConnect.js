@@ -1,4 +1,3 @@
-
 let socket = io.connect();
 
 const greeting = () => {
@@ -6,13 +5,13 @@ const greeting = () => {
 }
 
 // test to make sure connection is established
-socket.on('connect', function() {
-  console.log('connected to socket')
-  socket.emit('test', 'hello from client')
-});
-socket.on('test', (data) => {
-  console.log('message from server:', data)
-})
+// socket.on('connect', function() {
+//   console.log('connected to socket')
+//   socket.emit('test', 'hello from client')
+// });
+// socket.on('test', (data) => {
+//   console.log('message from server:', data)
+// })
 ///
 
 socket.on('connect_error', function() {
@@ -29,8 +28,12 @@ function subscribeToTimer(onInitiated, onUpdated, onUserCountUpdate) {
     console.log('status received')
     onInitiated(null, status);
   })
-  socket.on('timerUpdate', (type, str) => onUpdated(type, str))
-  socket.on('userCountChange', onUserCountUpdate)
+  socket.on('timerUpdate', function(type, str){
+    onUpdated(type, str)
+  })
+  socket.on('userCountChange', function(newUserCount){
+    onUserCountUpdate(newUserCount)
+  })
   console.log('request for status sent');
 } 
 
@@ -57,7 +60,7 @@ function updateChat(onNewMessage, onNewNotification, assignColor){
 
 
 
-export default {
+module.exports = {
   greeting,
   subscribeToTimer,
   modifyTimer,
