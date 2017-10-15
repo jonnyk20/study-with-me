@@ -5,6 +5,7 @@ import timerCycles from '../../lib/timerCycles';
 import { subscribeToTimer, modifyTimer } from '../socketConnect';
 import Timer from './Timer/Timer.js';
 import AdminPanel from './AdminPanel/AdminPanel.js';
+import ChatContainer from './Chat/ChatContainer.js'
 
 
 class App extends Component {
@@ -48,15 +49,19 @@ class App extends Component {
 
 
           <div className='card mx-auto app-content'>
-            <div className='panel-body'>
               <Timer
                 onlineUsers={ this.state.onlineUsers }
                 timestamp={ this.state.timestamp }
                 timerCycle={ this.state.timerCycle }
                 timerState={ this.state.timerState }
               />
-            </div>
           </div>
+
+          { (this.state.timerCycle === timerCycles.BREAK) &&
+          <ChatContainer
+          onUserCountChange={ this.onUserCountChange }
+         />
+        }
         </div>
       </div>
     )
