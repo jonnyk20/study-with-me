@@ -2,3 +2,67 @@ h1 {
   font-family: helvetica;
   font-weight: 200;
 }
+.app-content {
+  width: 600px;
+  margin-top: 50px;
+  padding: 20px;
+
+}
+
+.timer {
+  position: relative;
+}
+.control-row {
+  margin-bottom: 8px
+}
+
+@media (max-width: 650px) {
+  .app-content {
+    margin: 20px 20px 0;
+    width: auto;
+  }
+}
+
+.admin {
+  padding: 5px;
+}
+.chat-container {
+  width: 600px;
+}
+
+.message-list {
+  min-height: 100px;
+  margin-bottom: 15px;
+}
+
+.chat-input-container {
+  padding: 0;
+}
+
+.message-username, .chatbar-username {
+  font-weight: bold;
+}
+
+.notification-content {
+    font-style: italic;
+}
+
+.user-purple {
+  color: #800080;
+}
+
+.user-orange {
+  color: #ffa500;
+}
+.user-green {
+  color: #00FF00;
+}
+
+.user-blue {
+  color: #0000ff;
+}
+span.online-users {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

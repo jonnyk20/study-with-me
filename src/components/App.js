@@ -2,18 +2,14 @@ import '../assets/stylesheets/base.scss';
 import React, { Component } from 'react';
 import timerStates from '../../lib/timerStates';
 import timerCycles from '../../lib/timerCycles';
+import socketConnect from '../socketConnect';
 
-let socket = io.connect();
+
 
 class App extends Component {
-  componentDidMount() {
-    console.log('mounted')
-    socket.on('connect', function(data) {
-      socket.emit('test', 'hello world from the client!');
-    });
-    socket.on('test', (data) => {
-      console.log('message from server:', data)
-    })
+  constructor(){
+    super();
+    console.log('constructed!')
   }
 
   render() {
