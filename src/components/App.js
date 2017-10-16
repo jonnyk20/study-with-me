@@ -67,9 +67,9 @@ class App extends Component {
 
           { (this.state.timerCycle === timerCycles.BREAK) &&
           <ChatContainer
-          chatColor={ this.state.chatColor }
-          onUserCountChange={ this.onUserCountChange }
-         />
+            chatColor={ this.state.chatColor }
+            onUserCountChange={ this.onUserCountChange }
+          />
         }
         </div>
       </div>

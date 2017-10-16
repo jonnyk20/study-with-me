@@ -36,7 +36,7 @@ server.listen(PORT, function(error) {
 
 
 // timer initiation
-const t = new Timer([0, 10], [0, 5]);
+const t = new Timer([25, 0], [5, 0]);
 t.startTimer();
 
 t.on('tick', (type, str) => {
